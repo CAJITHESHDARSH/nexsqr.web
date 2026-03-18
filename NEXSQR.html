@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexSqr | Engineering Financial Intelligence</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tailwind Configuration for custom animations if needed -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(-50%) translateX(0px)' },
+              '50%': { transform: 'translateY(calc(-50% - 15px)) translateX(5px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      cursor: none; /* Hide default cursor on desktop for custom cursor */
+      background-color: #fafaf9; /* stone-50 */
+    }
+    
+    @media (max-width: 768px) {
+      body { cursor: auto; }
+    }
+
+    /* Hide scrollbar for clean look */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f5f5f4; /* stone-100 */
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #d6d3d1; /* stone-300 */
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a8a29e; /* stone-400 */
+    }
+
+    /* Scroll Reveal Base Classes */
+    .reveal-up {
+      opacity: 0;
+      transform: translateY(3rem);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .reveal-active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Tab Fade Animation */
+    .fade-in-section {
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Page View Transitions */
+    .page-view {
+      animation: pageFade 0.5s ease-out forwards;
+    }
+    @keyframes pageFade {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-stone-50 min-h-screen text-stone-900 font-sans selection:bg-amber-200 selection:text-amber-900 flex flex-col">
+
+  <!-- Custom Cursor Elements -->
+  <div id="cursor-dot" class="hidden md:block fixed top-0 left-0 w-3 h-3 bg-amber-500 rounded-full pointer-events-none z-[100] transition-transform duration-150 ease-out shadow-lg shadow-amber-500/50"></div>
+  <div id="cursor-glow" class="hidden md:block fixed top-0 left-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none z-[90] transition-transform duration-500 ease-out"></div>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-6">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <div class="text-2xl font-bold tracking-tighter text-stone-900 cursor-pointer" onclick="navigateTo('page-home')">
+        NexSqr<span class="text-amber-600">.</span>
+      </div>
+      <div class="hidden md:flex space-x-8 text-sm font-medium text-stone-600">
+        <a href="#" onclick="navigateTo('page-services'); return false;" class="hover:text-amber-600 transition-colors">Services</a>
+        <a href="#" onclick="navigateTo('page-industries'); return false;" class="hover:text-amber-600 transition-colors">Industries</a>
+        <a href="#" onclick="navigateTo('page-insights'); return false;" class="hover:text-amber-600 transition-colors">Insights</a>
+        <a href="#" onclick="navigateTo('page-about'); return false;" class="hover:text-amber-600 transition-colors">About</a>
+      </div>
+      <button onclick="navigateTo('page-contact')" class="px-6 py-2.5 bg-stone-900 text-white text-sm font-semibold rounded-full shadow-md shadow-stone-900/10 hover:bg-amber-600 hover:shadow-amber-600/20 transition-all duration-300">
+        Book Consultation
+      </button>
+    </div>
+  </nav>
+
+  <!-- Router Pages Container -->
+  <main class="flex-grow">
+    
+    <!-- ======================= -->
+    <!-- PAGE: HOME -->
+    <!-- ======================= -->
+    <div id="page-home" class="page-view block">
+      <!-- Hero Section -->
+      <section class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-stone-50">
+        <!-- Abstract Elegant Background -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#8a8a8a12_1px,transparent_1px),linear-gradient(to_bottom,#8a8a8a12_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+        
+        <!-- Luxurious Glows -->
+        <div class="absolute top-1/4 -left-32 w-[600px] h-[600px] bg-amber-300/20 rounded-full blur-[120px] pointer-events-none mix-blend-multiply"></div>
+        <div class="absolute bottom-1/4 right-0 w-[600px] h-[600px] bg-yellow-200/30 rounded-full blur-[120px] pointer-events-none mix-blend-multiply"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber-100/40 rounded-full blur-[150px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative w-full flex justify-between items-center z-10">
+          
+          <!-- Text Content -->
+          <div class="max-w-3xl reveal-up">
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white border border-stone-200 shadow-sm text-xs font-bold text-amber-700 uppercase tracking-widest mb-8">
+              <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+              <span>Strategic Finance & Advisory</span>
+            </div>
+            
+            <h1 class="text-6xl md:text-7xl lg:text-8xl font-extrabold text-stone-900 tracking-tighter leading-[1.05] mb-8">
+              Engineering <br/>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-yellow-600 to-amber-700">Financial Intelligence.</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-stone-600 max-w-2xl mb-10 leading-relaxed font-medium">
+              We don't just ensure compliance — we design financial systems that drive scale, clarity, and strategic advantage for modern enterprises.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4">
+              <button onclick="navigateTo('page-contact')" class="px-8 py-4 bg-amber-600 text-white font-bold rounded-full shadow-lg shadow-amber-600/30 hover:shadow-amber-600/50 hover:bg-amber-700 transition-all flex items-center justify-center space-x-2 group cursor-pointer">
+                <span>Book Consultation</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+              </button>
+              <button onclick="navigateTo('page-services')" class="px-8 py-4 bg-white text-stone-900 font-bold rounded-full shadow-sm border border-stone-200 hover:border-stone-300 hover:bg-stone-50 transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                <span>Explore Expertise</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Floating Dashboard -->
+          <div class="hidden lg:block absolute right-10 top-1/2 -translate-y-1/2 w-80 bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-white shadow-2xl shadow-stone-900/5 animate-float z-10">
+            <div class="flex justify-between items-center mb-6">
+              <div class="text-xs font-bold text-stone-500 tracking-widest uppercase">Capital Efficiency</div>
+              <div class="p-1.5 bg-amber-50 rounded-md border border-amber-100">
+                <i data-lucide="activity" class="w-4 h-4 text-amber-600"></i>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between text-sm mb-1.5">
+                  <span class="text-stone-700 font-semibold">Working Capital Ratio</span>
+                  <span class="text-amber-600 font-bold">+14.2%</span>
+                </div>
+                <div class="h-2 w-full bg-stone-100 rounded-full overflow-hidden shadow-inner">
+                  <div class="h-full bg-gradient-to-r from-amber-400 to-yellow-500 w-[78%] rounded-full"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm mb-1.5">
+                  <span class="text-stone-700 font-semibold">EBITDA Margin</span>
+                  <span class="text-amber-600 font-bold">+8.5%</span>
+                </div>
+                <div class="h-2 w-full bg-stone-100 rounded-full overflow-hidden shadow-inner">
+                  <div class="h-full bg-gradient-to-r from-yellow-500 to-amber-600 w-[64%] rounded-full"></div>
+                </div>
+              </div>
+              <div class="pt-5 mt-5 border-t border-stone-200 flex items-end justify-between">
+                <div>
+                  <div class="text-xs font-semibold text-stone-500 mb-1">Projected Valuation</div>
+                  <div class="text-3xl font-extrabold text-stone-900 tracking-tight">$42.5M</div>
+                </div>
+                <div class="p-2 bg-stone-50 border border-stone-100 rounded-lg">
+                  <i data-lucide="trending-up" class="w-6 h-6 text-amber-600"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Transformation Section -->
+      <section class="py-32 bg-white relative border-t border-stone-200">
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight mb-4">The NexSqr Shift.</h2>
+            <p class="text-stone-600 font-medium text-lg max-w-2xl mx-auto">Moving beyond basic reporting to engineer a financial architecture that drives valuation, attracts institutional capital, and scales seamlessly.</p>
+          </div>
+
+          <div class="relative rounded-3xl overflow-hidden bg-white border border-stone-200 shadow-2xl shadow-stone-200/50 reveal-scale flex flex-col">
+            <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-stone-200">
+              <!-- Before -->
+              <div class="p-10 md:p-12 bg-stone-100/50">
+                <div class="text-sm font-bold tracking-widest text-stone-500 uppercase mb-8 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-stone-400"></span>
+                  The Legacy State
+                </div>
+                <ul class="space-y-8">
+                  <li class="flex items-start">
+                    <div class="mt-1.5 mr-4 w-1.5 h-1.5 rounded-full bg-stone-400 flex-shrink-0"></div>
+                    <div>
+                      <span class="font-bold text-stone-800 block mb-1">Reactive Firefighting</span>
+                      <span class="text-sm text-stone-500 font-medium leading-relaxed">Compliance is treated as a year-end scramble rather than a continuous, optimized process.</span>
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <div class="mt-1.5 mr-4 w-1.5 h-1.5 rounded-full bg-stone-400 flex-shrink-0"></div>
+                    <div>
+                      <span class="font-bold text-stone-800 block mb-1">Trapped Working Capital</span>
+                      <span class="text-sm text-stone-500 font-medium leading-relaxed">Inefficient cash conversion cycles and opaque unit economics constraining growth velocity.</span>
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <div class="mt-1.5 mr-4 w-1.5 h-1.5 rounded-full bg-stone-400 flex-shrink-0"></div>
+                    <div>
+                      <span class="font-bold text-stone-800 block mb-1">Valuation Discount</span>
+                      <span class="text-sm text-stone-500 font-medium leading-relaxed">Fragmented data and lack of strategic foresight leading to lower investor confidence and reduced multiples.</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              
+              <!-- After -->
+              <div class="p-10 md:p-12 bg-gradient-to-br from-amber-500 to-yellow-600 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full blur-[60px] pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-40 h-40 bg-amber-900/20 rounded-full blur-[40px] pointer-events-none"></div>
+                
+                <div class="text-sm font-bold tracking-widest text-amber-50 uppercase mb-8 flex items-center gap-2 relative z-10">
+                  <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                  The NexSqr Standard
+                </div>
+                <ul class="space-y-8 relative z-10">
+                  <li class="flex items-start">
+                    <i data-lucide="shield-check" class="mt-0.5 mr-4 w-6 h-6 text-amber-100 flex-shrink-0"></i>
+                    <div>
+                      <span class="font-bold text-white block mb-1 text-lg">IPO-Ready Frameworks</span>
+                      <span class="text-sm text-amber-100 font-medium leading-relaxed">Automated, robust compliance engines that easily pass Big 4 audits and regulatory scrutiny.</span>
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <i data-lucide="trending-up" class="mt-0.5 mr-4 w-6 h-6 text-amber-100 flex-shrink-0"></i>
+                    <div>
+                      <span class="font-bold text-white block mb-1 text-lg">Capital Optimization</span>
+                      <span class="text-sm text-amber-100 font-medium leading-relaxed">Deep margin analysis and restructured cash cycles that free up liquidity for aggressive scaling.</span>
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <i data-lucide="bar-chart-3" class="mt-0.5 mr-4 w-6 h-6 text-amber-100 flex-shrink-0"></i>
+                    <div>
+                      <span class="font-bold text-white block mb-1 text-lg">Investor-Grade Intelligence</span>
+                      <span class="text-sm text-amber-100 font-medium leading-relaxed">Proactive, strategic MIS reporting that commands premium valuations during fundraises.</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- ROI Metrics Bar -->
+            <div class="bg-stone-900 p-8 md:p-10 text-white flex flex-col lg:flex-row justify-between items-center gap-8 relative overflow-hidden">
+               <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] pointer-events-none"></div>
+               <div class="lg:w-1/3 relative z-10 text-center lg:text-left">
+                 <h4 class="text-xl font-bold text-amber-500 mb-2">Measurable ROI</h4>
+                 <p class="text-stone-400 text-sm font-medium">We transition businesses from operational chaos to strategic clarity, delivering quantifiable results.</p>
+               </div>
+               <div class="lg:w-2/3 grid grid-cols-2 md:grid-cols-3 gap-6 w-full relative z-10">
+                  <div class="border-l-2 border-stone-800 pl-6">
+                    <div class="text-4xl font-extrabold text-white mb-1">3x</div>
+                    <div class="text-xs font-bold text-stone-500 uppercase tracking-widest">Faster Close Cycle</div>
+                  </div>
+                  <div class="border-l-2 border-stone-800 pl-6">
+                    <div class="text-4xl font-extrabold text-white mb-1">100%</div>
+                    <div class="text-xs font-bold text-stone-500 uppercase tracking-widest">Audit Readiness</div>
+                  </div>
+                  <div class="border-l-2 border-stone-800 pl-6 col-span-2 md:col-span-1">
+                    <div class="text-4xl font-extrabold text-white mb-1">+15%</div>
+                    <div class="text-xs font-bold text-stone-500 uppercase tracking-widest">Capital Efficiency</div>
+                  </div>
+               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ======================= -->
+    <!-- PAGE: SERVICES -->
+    <!-- ======================= -->
+    <div id="page-services" class="page-view hidden pt-24 min-h-screen">
+      <section class="py-20 bg-stone-50 relative overflow-hidden flex-grow">
+        <!-- Background Decor -->
+        <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-amber-100/40 to-transparent rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+          <div class="mb-16">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight mb-6">Financial Arsenal.</h2>
+            <p class="text-xl text-stone-600 max-w-2xl font-medium">
+              We architect solutions for high-growth entities. Combining elite compliance with strategic business outcomes.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-3xl border border-stone-200 shadow-xl shadow-stone-200/50 p-6 md:p-10 reveal-up">
+            <div class="flex flex-col md:flex-row gap-8">
+              <!-- Vertical Tabs Sidebar -->
+              <div class="md:w-1/3 flex flex-col space-y-2 border-b md:border-b-0 md:border-r border-stone-200 pb-6 md:pb-0 md:pr-6">
+                <button class="service-tab-btn active w-full text-left px-6 py-4 rounded-xl font-bold bg-amber-50 text-amber-700 transition-all flex justify-between items-center cursor-pointer" data-target="tab-assurance">
+                  Assurance
+                  <i data-lucide="chevron-right" class="w-4 h-4 opacity-100 transition-opacity pointer-events-none"></i>
+                </button>
+                <button class="service-tab-btn w-full text-left px-6 py-4 rounded-xl font-bold text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-all flex justify-between items-center group cursor-pointer" data-target="tab-tax">
+                  Tax
+                  <i data-lucide="chevron-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></i>
+                </button>
+                <button class="service-tab-btn w-full text-left px-6 py-4 rounded-xl font-bold text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-all flex justify-between items-center group cursor-pointer" data-target="tab-advisory">
+                  Advisory
+                  <i data-lucide="chevron-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></i>
+                </button>
+                <button class="service-tab-btn w-full text-left px-6 py-4 rounded-xl font-bold text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-all flex justify-between items-center group cursor-pointer" data-target="tab-managed">
+                  Managed Services
+                  <i data-lucide="chevron-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></i>
+                </button>
+              </div>
+
+              <!-- Tab Content Area -->
+              <div class="md:w-2/3 pl-0 md:pl-2 relative">
+                <!-- Assurance Content -->
+                <div id="tab-assurance" class="service-tab-content block fade-in-section">
+                  <h3 class="text-2xl md:text-3xl font-extrabold text-stone-900 mb-6 flex items-center gap-3">
+                    <div class="p-2 bg-amber-50 rounded-xl border border-amber-100"><i data-lucide="shield-check" class="text-amber-600 w-6 h-6"></i></div>
+                    Assurance
+                  </h3>
+                  <ul class="grid sm:grid-cols-2 gap-4">
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default">
+                      <span class="font-medium text-sm">Accounting Advisory Services</span>
+                    </li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default">
+                      <span class="font-medium text-sm">Financial Statement Audit and Attestation Services</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Tax Content -->
+                <div id="tab-tax" class="service-tab-content hidden fade-in-section">
+                  <h3 class="text-2xl md:text-3xl font-extrabold text-stone-900 mb-6 flex items-center gap-3">
+                    <div class="p-2 bg-amber-50 rounded-xl border border-amber-100"><i data-lucide="layers" class="text-amber-600 w-6 h-6"></i></div>
+                    Tax
+                  </h3>
+                  <ul class="grid sm:grid-cols-2 gap-4">
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Corporate Tax Services</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Customs and International Trade</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Financial Services Tax</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Global Employer Services</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Goods and Services Tax (GST)</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Incentives & ESG</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Indirect Taxes Other Than GST</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">International Tax Services</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Private Client Services</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Tax Outsourcing Services</span></li>
+                  </ul>
+                </div>
+
+                <!-- Advisory Content -->
+                <div id="tab-advisory" class="service-tab-content hidden fade-in-section">
+                  <h3 class="text-2xl md:text-3xl font-extrabold text-stone-900 mb-6 flex items-center gap-3">
+                    <div class="p-2 bg-amber-50 rounded-xl border border-amber-100"><i data-lucide="bar-chart-3" class="text-amber-600 w-6 h-6"></i></div>
+                    Advisory
+                  </h3>
+                  <ul class="grid sm:grid-cols-2 gap-4">
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Business Restructuring</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Corporate Finance and Investment Banking</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Deal Value Creation</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Executive Search Services</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Financial Due Diligence</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Forensics</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Government Advisory</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">IT Risk Advisory And Assurance</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">M&A Tax and Regulatory</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Management Consulting</span></li>
+                  </ul>
+                </div>
+
+                <!-- Managed Services Content -->
+                <div id="tab-managed" class="service-tab-content hidden fade-in-section">
+                  <h3 class="text-2xl md:text-3xl font-extrabold text-stone-900 mb-6 flex items-center gap-3">
+                    <div class="p-2 bg-amber-50 rounded-xl border border-amber-100"><i data-lucide="zap" class="text-amber-600 w-6 h-6"></i></div>
+                    Managed Services
+                  </h3>
+                  <ul class="grid sm:grid-cols-2 gap-4">
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Corporate Secretarial Services and Compliance Management</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Finance and Accounting Outsourcing</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Human Resource Outsourcing</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Managed Services – International</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Payroll and Compliance Management</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Shared Service Centre Services</span></li>
+                    <li class="flex items-center text-stone-700 p-4 bg-stone-50 border border-stone-100 rounded-xl hover:bg-white hover:border-amber-200 hover:shadow-md transition-all cursor-default"><span class="font-medium text-sm">Tax Compliance Support</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ======================= -->
+    <!-- PAGE: INDUSTRIES -->
+    <!-- ======================= -->
+    <div id="page-industries" class="page-view hidden pt-24 min-h-screen flex items-center bg-white">
+      <section class="w-full py-20 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-12 reveal-up">
+            <div class="md:w-1/3">
+              <h2 class="text-4xl font-extrabold text-stone-900 tracking-tight mb-4">Cross-Sector Intelligence.</h2>
+              <p class="text-lg text-stone-600 font-medium leading-relaxed">
+                Expertise spanning high-growth and complex industries — from legacy manufacturing to venture-backed technology.
+              </p>
+            </div>
+            <div class="md:w-2/3 w-full flex flex-wrap gap-4 justify-start md:justify-end">
+              <div class="px-6 py-4 bg-stone-50 border border-stone-200 rounded-2xl text-stone-800 font-bold shadow-sm hover:bg-amber-600 hover:text-white hover:border-amber-600 hover:shadow-lg hover:shadow-amber-600/30 transition-all duration-300 cursor-default">Manufacturing</div>
+              <div class="px-6 py-4 bg-stone-50 border border-stone-200 rounded-2xl text-stone-800 font-bold shadow-sm hover:bg-amber-600 hover:text-white hover:border-amber-600 hover:shadow-lg hover:shadow-amber-600/30 transition-all duration-300 cursor-default">SaaS & Tech</div>
+              <div class="px-6 py-4 bg-stone-50 border border-stone-200 rounded-2xl text-stone-800 font-bold shadow-sm hover:bg-amber-600 hover:text-white hover:border-amber-600 hover:shadow-lg hover:shadow-amber-600/30 transition-all duration-300 cursor-default">Retail & Consumer</div>
+              <div class="px-6 py-4 bg-stone-50 border border-stone-200 rounded-2xl text-stone-800 font-bold shadow-sm hover:bg-amber-600 hover:text-white hover:border-amber-600 hover:shadow-lg hover:shadow-amber-600/30 transition-all duration-300 cursor-default">Healthcare & Pharma</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ======================= -->
+    <!-- PAGE: INSIGHTS -->
+    <!-- ======================= -->
+    <div id="page-insights" class="page-view hidden pt-24 min-h-screen flex flex-col justify-center bg-stone-50 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-amber-50/20 via-white to-yellow-50/20 pointer-events-none"></div>
+      <div class="max-w-4xl mx-auto px-6 relative z-10 w-full py-20">
+        <div class="text-center mb-12 reveal-up">
+          <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 shadow-sm text-xs font-bold text-amber-700 uppercase tracking-widest mb-6">
+            <i data-lucide="sparkles" class="w-3 h-3 text-amber-500"></i>
+            <span>NexSqr AI Engine</span>
+          </div>
+          <h2 class="text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight mb-4">Strategic Foresight <span class="text-amber-600">✨</span></h2>
+          <p class="text-lg text-stone-600 font-medium">Describe your current financial bottleneck. Our intelligence engine will synthesize a preliminary strategic audit in seconds.</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl border border-stone-200 shadow-xl shadow-stone-200/50 reveal-up">
+          <textarea id="ai-input" rows="4" class="w-full bg-stone-50 border border-stone-200 rounded-2xl p-5 text-stone-900 font-medium focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all placeholder:text-stone-400 resize-none mb-6" placeholder="e.g., We are a $10M ARR SaaS company struggling with Ind AS compliance and trapped working capital ahead of our Series B..."></textarea>
+          
+          <button id="ai-btn" onclick="analyzeChallenge()" class="w-full sm:w-auto px-8 py-4 bg-stone-900 text-white font-extrabold rounded-xl shadow-lg shadow-stone-900/20 hover:shadow-stone-900/40 hover:bg-stone-800 transition-all flex items-center justify-center space-x-2 disabled:opacity-70 disabled:cursor-not-allowed mx-auto cursor-pointer">
+            <span id="ai-btn-text">Analyze Challenge ✨</span>
+          </button>
+
+          <div id="ai-result" class="hidden mt-8 pt-8 border-t border-stone-200">
+            <div class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-4">Intelligence Output</div>
+            <div id="ai-result-content" class="min-h-[100px] bg-stone-50 rounded-2xl p-6 border border-stone-200 shadow-sm">
+              <!-- Result goes here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================= -->
+    <!-- PAGE: ABOUT -->
+    <!-- ======================= -->
+    <div id="page-about" class="page-view hidden pt-24 bg-white">
+      <section class="py-20">
+        <div class="max-w-5xl mx-auto px-6">
+          <div class="text-center mb-24 reveal-scale">
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-stone-900 tracking-tight leading-tight">
+              We don’t manage accounts. <br/>
+              <span class="text-amber-600">We engineer financial systems.</span>
+            </h2>
+            <div class="mt-8 text-4xl md:text-5xl lg:text-6xl font-bold text-stone-900 tracking-tight leading-tight">
+              We don’t just file reports. <br/>
+              <span class="text-yellow-600">We build investor-ready businesses.</span>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-16 items-center reveal-up">
+            <div>
+              <p class="text-xl text-stone-800 leading-relaxed font-semibold mb-6">
+                NexSqr was built on a simple idea — finance should not just report the past, it should shape the future.
+              </p>
+              <p class="text-lg text-stone-600 leading-relaxed font-medium">
+                We combine deep technical expertise with real-world business understanding to deliver solutions that are not only compliant, but strategically powerful. What defines us is execution — translating complexity into clarity, and data into direction.
+              </p>
+            </div>
+            <div class="bg-stone-50 p-8 rounded-3xl border border-stone-200 shadow-xl shadow-stone-200/50">
+              <h3 class="text-sm font-bold text-amber-700 tracking-widest uppercase mb-6">Our Foundation</h3>
+              <div class="grid grid-cols-2 gap-8">
+                <div>
+                  <div class="text-stone-900 font-bold mb-1">Integrity</div>
+                  <div class="text-sm text-stone-500 font-medium leading-snug">Uncompromising ethics in every calculation.</div>
+                </div>
+                <div>
+                  <div class="text-stone-900 font-bold mb-1">Excellence</div>
+                  <div class="text-sm text-stone-500 font-medium leading-snug">Operating at an IPO-ready standard.</div>
+                </div>
+                <div>
+                  <div class="text-stone-900 font-bold mb-1">Commitment</div>
+                  <div class="text-sm text-stone-500 font-medium leading-snug">Aligning with your long-term vision.</div>
+                </div>
+                <div>
+                  <div class="text-stone-900 font-bold mb-1">Insight</div>
+                  <div class="text-sm text-stone-500 font-medium leading-snug">Seeing the strategy behind the numbers.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-24 bg-stone-50 border-t border-stone-200">
+        <div class="max-w-7xl mx-auto px-6">
+          <h2 class="text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight mb-16">Architects of Scale.</h2>
+          
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="p-10 bg-white border border-stone-200 rounded-3xl relative overflow-hidden group hover:shadow-xl hover:shadow-amber-900/5 hover:border-amber-200 transition-all duration-500 reveal-up">
+              <div class="absolute top-0 right-0 w-48 h-48 bg-stone-50 rounded-full blur-3xl group-hover:bg-amber-100 transition-colors duration-700 pointer-events-none"></div>
+              <h3 class="text-3xl font-extrabold text-stone-900 mb-2 relative z-10">Jithesh S</h3>
+              <div class="text-amber-600 font-bold tracking-widest text-xs uppercase mb-6 relative z-10">Founder & Partner</div>
+              <p class="text-stone-600 font-medium leading-relaxed text-lg relative z-10">
+                "Brings deep audit discipline and IPO-level expertise, shaped by large-scale engagements and complex financial environments."
+              </p>
+            </div>
+            
+            <div class="p-10 bg-white border border-stone-200 rounded-3xl relative overflow-hidden group hover:shadow-xl hover:shadow-amber-900/5 hover:border-amber-200 transition-all duration-500 reveal-up">
+              <div class="absolute top-0 right-0 w-48 h-48 bg-stone-50 rounded-full blur-3xl group-hover:bg-amber-100 transition-colors duration-700 pointer-events-none"></div>
+              <h3 class="text-3xl font-extrabold text-stone-900 mb-2 relative z-10">Darsh B Jain</h3>
+              <div class="text-amber-600 font-bold tracking-widest text-xs uppercase mb-6 relative z-10">Founder & Partner</div>
+              <p class="text-stone-600 font-medium leading-relaxed text-lg relative z-10">
+                "Specializes in building operational finance systems that drive efficiency, control, and long-term scalability."
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ======================= -->
+    <!-- PAGE: CONTACT -->
+    <!-- ======================= -->
+    <div id="page-contact" class="page-view hidden pt-24 min-h-screen bg-stone-50 relative overflow-hidden flex flex-col justify-center">
+      <!-- Soft gradient background -->
+      <div class="absolute inset-0 bg-gradient-to-br from-amber-50/40 via-white to-yellow-50/40 pointer-events-none"></div>
+      
+      <div class="max-w-7xl mx-auto px-6 relative z-10 w-full py-20">
+        <div class="grid lg:grid-cols-2 gap-16 reveal-up">
+          <div>
+            <h2 class="text-5xl md:text-7xl font-extrabold text-stone-900 tracking-tighter mb-6 leading-tight">
+              Ready to <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-yellow-600">Scale?</span>
+            </h2>
+            <p class="text-xl text-stone-600 font-medium mb-12 max-w-md leading-relaxed">
+              Connect with our partners to discuss how we can engineer a financial foundation built for high-growth and investor readiness.
+            </p>
+            
+            <div class="space-y-8">
+              <div class="group">
+                <div class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Email Inquiry</div>
+                <a href="mailto:info@nexsqr.com" class="text-2xl font-bold text-stone-900 group-hover:text-amber-600 transition-colors">info@nexsqr.com</a>
+              </div>
+              <div class="group">
+                <div class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Direct Line</div>
+                <div class="text-2xl font-bold text-stone-900 group-hover:text-amber-600 transition-colors">+91 XXXXX XXXXX</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-10 rounded-3xl border border-stone-200 shadow-2xl shadow-stone-300/50 relative overflow-hidden min-h-[500px]">
+            <!-- Form -->
+            <form action="https://formsubmit.co/jithesh@jdsjco.com" method="POST" class="space-y-6 relative z-10">
+              <!-- FormSubmit Configuration -->
+              <input type="hidden" name="_subject" value="New Consultation Request - NexSqr (Home Page)">
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_template" value="table">
+              
+              <div class="grid grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label class="text-xs font-bold text-stone-500 uppercase tracking-widest">First Name</label>
+                  <input required name="first_name" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3.5 text-stone-900 font-medium focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all placeholder:text-stone-400" placeholder="John" />
+                </div>
+                <div class="space-y-2">
+                  <label class="text-xs font-bold text-stone-500 uppercase tracking-widest">Last Name</label>
+                  <input required name="last_name" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3.5 text-stone-900 font-medium focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all placeholder:text-stone-400" placeholder="Doe" />
+                </div>
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-stone-500 uppercase tracking-widest">Company / Entity</label>
+                <input required name="company" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3.5 text-stone-900 font-medium focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all placeholder:text-stone-400" placeholder="Acme Corp" />
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-stone-500 uppercase tracking-widest">Email Address</label>
+                <input required name="email" type="email" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3.5 text-stone-900 font-medium focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all placeholder:text-stone-400" placeholder="john@acmecorp.com" />
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-stone-500 uppercase tracking-widest">Strategic Need</label>
+                <select required name="strategic_need" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3.5 text-stone-900 font-medium focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all appearance-none cursor-pointer">
+                  <option value="" class="text-stone-500">Select an area of interest...</option>
+                  <option value="audit">Assurance & Audit</option>
+                  <option value="ipo">IPO Readiness & Compliance</option>
+                  <option value="advisory">Accounting Advisory</option>
+                  <option value="vcfo">Virtual CFO Services</option>
+                </select>
+              </div>
+              <button type="submit" class="w-full py-4 mt-2 bg-amber-600 text-white font-extrabold rounded-xl shadow-lg shadow-amber-600/30 hover:shadow-amber-600/50 hover:bg-amber-700 transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                <span class="submit-text">Submit</span>
+                <i data-lucide="chevron-right" class="submit-icon w-5 h-5"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Transformation Section -->
+            <div id="form-success" class="hidden absolute inset-0 flex-col items-center justify-center bg-white transition-opacity duration-500 z-20">
+              <div class="w-24 h-24 rounded-full bg-amber-50 flex items-center justify-center mb-6 shadow-inner border border-amber-100">
+            <div class="space-y-8">
+              <div class="group">
+                <div class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Email Inquiry</div>
+                <a href="mailto:info@nexsqr.com" class="text-2xl font-bold text-stone-900 group-hover:text-amber-600 transition-colors">info@nexsqr.com</a>
+              </div>
+              <div class="group">
+                <div class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Direct Line</div>
+                <div class="text-2xl font-bold text-stone-900 group-hover:text-amber-600 transition-colors">+91 XXXXX XXXXX</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-10 rounded-3xl border border-stone-200 shadow-2xl shadow-stone-300/50 relative overflow-hidden min-h-[500px]">
+            <!-- Form -->
+            <form action="https://formsubmit.co/jithesh@jdsjco.com" method="POST" class="space-y-6 relative z-10">
+              <!-- FormSubmit Configuration -->
+              <input type="hidden" name="_subject" value="New Consultation Request - NexSqr (Contact Page)">
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_template" value="table">
+
+              <div class="grid grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label class="text-xs font-bold text-stone-500 uppercase tracking-widest">First Name</label>
+                  <input required name="first_name" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3.5 text-stone-900 font-medium focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all placeholder:text-stone-400" placeholder="John" />
+                </div>
+                <div class="space-y-2">
+                  <label class="text-xs font-bold text-stone-500 uppercase tracking-widest">Last Name</label>
+                  <input required name="last_name" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3.5 text-stone-900 font-medium focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all placeholder:text-stone-400" placeholder="Doe" />
+                </div>
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-stone-500 uppercase tracking-widest">Company / Entity</label>
+                <input required name="company" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3.5 text-stone-900 font-medium focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all placeholder:text-stone-400" placeholder="Acme Corp" />
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-stone-500 uppercase tracking-widest">Email Address</label>
+                <input required name="email" type="email" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3.5 text-stone-900 font-medium focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all placeholder:text-stone-400" placeholder="john@acmecorp.com" />
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-stone-500 uppercase tracking-widest">Strategic Need</label>
+                <select required name="strategic_need" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3.5 text-stone-900 font-medium focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all appearance-none cursor-pointer">
+                  <option value="" class="text-stone-500">Select an area of interest...</option>
+                  <option value="audit">Assurance & Audit</option>
+                  <option value="ipo">IPO Readiness & Compliance</option>
+                  <option value="advisory">Accounting Advisory</option>
+                  <option value="vcfo">Virtual CFO Services</option>
+                </select>
+              </div>
+              <button type="submit" class="w-full py-4 mt-2 bg-amber-600 text-white font-extrabold rounded-xl shadow-lg shadow-amber-600/30 hover:shadow-amber-600/50 hover:bg-amber-700 transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                <span class="submit-text">Submit</span>
+                <i data-lucide="chevron-right" class="submit-icon w-5 h-5"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-white border-t border-stone-200 mt-auto">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="text-2xl font-extrabold tracking-tighter text-stone-900">
+        NexSqr<span class="text-amber-600">.</span>
+      </div>
+      <div class="text-sm text-stone-500 font-medium">
+        © <span id="year"></span> NexSqr Private Limited. All rights reserved.
+      </div>
+      <div class="flex space-x-6 text-sm font-bold text-stone-600">
+        <a href="#" class="hover:text-amber-600 transition-colors">Privacy</a>
+        <a href="#" class="hover:text-amber-600 transition-colors">Terms</a>
+        <a href="#" class="hover:text-amber-600 transition-colors">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Set dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ==========================================
+    // SPA NAVIGATION ROUTER
+    // ==========================================
+    function navigateTo(pageId) {
+      // Hide all pages
+      document.querySelectorAll('.page-view').forEach(page => {
+        page.classList.remove('block');
+        page.classList.add('hidden');
+      });
+      
+      // Show target page
+      const targetPage = document.getElementById(pageId);
+      if(targetPage) {
+        targetPage.classList.remove('hidden');
+        targetPage.classList.add('block');
+      }
+
+      // Scroll immediately to top
+      window.scrollTo({ top: 0, behavior: 'instant' });
+
+      // Retrigger intersection observer animations for the new page
+      const newPageReveals = targetPage.querySelectorAll('.reveal-up, .reveal-scale');
+      newPageReveals.forEach(el => {
+        el.classList.remove('reveal-active');
+        observer.unobserve(el);
+        // Timeout ensures the display block registers before observing
+        setTimeout(() => observer.observe(el), 50);
+      });
+    }
+
+    // Custom Cursor Logic
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorGlow = document.getElementById('cursor-glow');
+    let mouseX = 0, mouseY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.transform = `translate3d(${mouseX - 6}px, ${mouseY - 6}px, 0)`;
+      cursorGlow.style.transform = `translate3d(${mouseX - 128}px, ${mouseY - 128}px, 0)`;
+    });
+
+    document.addEventListener('mouseover', (e) => {
+      const isInteractive = e.target.tagName.toLowerCase() === 'a' || 
+                            e.target.tagName.toLowerCase() === 'button' || 
+                            e.target.closest('button') || 
+                            e.target.closest('a') ||
+                            e.target.tagName.toLowerCase() === 'input' ||
+                            e.target.tagName.toLowerCase() === 'select' ||
+                            e.target.classList.contains('cursor-pointer');
+                            
+      if (isInteractive) {
+        cursorDot.style.transform = `translate3d(${mouseX - 6}px, ${mouseY - 6}px, 0) scale(2.5)`;
+      } else {
+        cursorDot.style.transform = `translate3d(${mouseX - 6}px, ${mouseY - 6}px, 0) scale(1)`;
+      }
+    });
+
+    // Navbar Scroll Logic
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('bg-white/90', 'backdrop-blur-lg', 'border-b', 'border-stone-200/50', 'shadow-sm');
+        navbar.classList.remove('bg-transparent');
+      } else {
+        navbar.classList.remove('bg-white/90', 'backdrop-blur-lg', 'border-b', 'border-stone-200/50', 'shadow-sm');
+        navbar.classList.add('bg-transparent');
+      }
+    });
+
+    // Scroll Reveal Animations via Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-active');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+    // Initial Observe
+    document.querySelectorAll('.reveal-up, .reveal-scale').forEach(el => observer.observe(el));
+
+    // Services Tabs Logic
+    const serviceTabs = document.querySelectorAll('.service-tab-btn');
+    const serviceContents = document.querySelectorAll('.service-tab-content');
+
+    serviceTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remove active state from all tabs
+        serviceTabs.forEach(t => {
+          t.classList.remove('bg-amber-50', 'text-amber-700', 'active');
+          t.classList.add('text-stone-600');
+          const icon = t.querySelector('svg') || t.querySelector('i');
+          if (icon) {
+            icon.classList.remove('opacity-100');
+            icon.classList.add('opacity-0');
+          }
+        });
+
+        // Hide all tab contents
+        serviceContents.forEach(content => {
+          content.classList.remove('block');
+          content.classList.add('hidden');
+        });
+
+        // Set clicked tab as active
+        tab.classList.add('bg-amber-50', 'text-amber-700', 'active');
+        tab.classList.remove('text-stone-600');
+        const activeIcon = tab.querySelector('svg') || tab.querySelector('i');
+        if (activeIcon) {
+          activeIcon.classList.remove('opacity-0');
+          activeIcon.classList.add('opacity-100');
+        }
+
+        // Show corresponding content
+        const targetId = tab.getAttribute('data-target');
+        const targetContent = document.getElementById(targetId);
+        targetContent.classList.remove('hidden');
+        targetContent.classList.add('block');
+      });
+    });
+
+    // Gemini API Logic
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    async function fetchWithRetry(url, options, retries = 5) {
+      const delays = [1000, 2000, 4000, 8000, 16000];
+      for (let i = 0; i < retries; i++) {
+        try {
+          const response = await fetch(url, options);
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          return await response.json();
+        } catch (error) {
+          if (i === retries - 1) throw error;
+          await sleep(delays[i]);
+        }
+      }
+    }
+
+    async function analyzeChallenge() {
+      const input = document.getElementById('ai-input').value;
+      if (!input) return;
+
+      const btn = document.getElementById('ai-btn');
+      const btnText = document.getElementById('ai-btn-text');
+      const resultDiv = document.getElementById('ai-result');
+      const resultContent = document.getElementById('ai-result-content');
+
+      btn.disabled = true;
+      btnText.textContent = "Synthesizing...";
+      resultDiv.classList.remove('hidden');
+      resultContent.innerHTML = '<div class="flex items-center space-x-2 text-stone-500"><i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i><span>Analyzing financial architecture...</span></div>';
+      lucide.createIcons();
+
+      const apiKey = "";
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+      
+      const payload = {
+        contents: [{ parts: [{ text: input }] }],
+        systemInstruction: { 
+          parts: [{ 
+            text: "You are an elite financial strategist at NexSqr, a premium finance consulting firm. The user will provide a business challenge. Provide a concise, 3-point strategic financial assessment: <br><br><b>1. Core Risk:</b> [Identify main threat]<br><br><b>2. Strategic Move:</b> [One actionable shift]<br><br><b>3. NexSqr Solution:</b> [How we engineer the fix].<br><br> Format the output in clean HTML (use the tags provided, no markdown backticks). Keep it sharp, elite, and strictly under 150 words." 
+          }] 
+        }
+      };
+
+      try {
+        const data = await fetchWithRetry(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Unable to synthesize at this moment.";
+        const cleanText = text.replace(/```html/g, '').replace(/```/g, '');
+        resultContent.innerHTML = `<div class="text-stone-700 leading-relaxed">${cleanText}</div>`;
+      } catch (error) {
+        resultContent.innerHTML = `<div class="text-red-500 font-medium">Error connecting to the intelligence engine. Please try again later.</div>`;
+      } finally {
+        btn.disabled = false;
+        btnText.textContent = "Analyze Challenge ✨";
+      }
+    }
+  </script>
+</body>
+</html>
